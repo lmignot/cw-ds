@@ -4,7 +4,7 @@
  * @author Laurent Mignot
  */
 
-public abstract class ReturnObjectImpl implements ReturnObject {
+public class ReturnObjectImpl implements ReturnObject {
 
     private ErrorMessage error;
     private Object obj;
