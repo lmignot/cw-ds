@@ -6,23 +6,32 @@
 
 public abstract class ReturnObjectImpl implements ReturnObject {
 
-    private ErrorMessage error = null;
+    private ErrorMessage error;
     private Object obj;
 
-    public ReturnObjectImpl (Object obj) {
+    public ReturnObjectImpl () {
+        this.error = ErrorMessage.NO_ERROR;
+        this.obj = null;
+    }
+
+    public void setObject (Object obj) {
         this.obj = obj;
     }
 
-    public boolean hasError() {
+    public void setError (ErrorMessage error) {
+        this.error = error;
+    }
+
+    public boolean hasError () {
         return (this.error != null && this.error != ErrorMessage.NO_ERROR);
     };
 
-    public ErrorMessage getError() {
+    public ErrorMessage getError () {
         return this.error;
     };
 
-    public Object getReturnValue() {
-        return this.obj;
+    public Object getReturnValue () {
+        return !this.hasError() ? this.obj : null;
     };
 
 }
