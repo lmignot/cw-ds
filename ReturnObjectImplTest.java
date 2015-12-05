@@ -19,12 +19,21 @@ public class ReturnObjectImplTest {
     }
 
     @Test
-    public void shouldReturnErrorIfHasObjectAndAlsoError() {
+    public void shouldReturnErrorAndNullIfHasObjectAndAlsoError() {
         ErrorMessage test = ErrorMessage.INVALID_ARGUMENT;
         ReturnObject obj = new ReturnObjectImpl("Test", test);
 
         assertEquals(true, obj.hasError());
         assertEquals(null, obj.getReturnValue());
+    }
+
+    @Test
+    public void shouldReturnObjectIfHasObjectAndHasNoError() {
+        String str = "Test";
+        ReturnObject obj = new ReturnObjectImpl(str, null);
+
+        assertEquals(false, obj.hasError());
+        assertEquals(str, obj.getReturnValue());
     }
 
 }
