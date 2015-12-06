@@ -10,6 +10,12 @@ public class ReturnObjectImplTest {
     }
 
     @Test
+    public void emptyObjectShouldReturnNullWhenGetReturnValueIsCalled() {
+        ReturnObject obj = new ReturnObjectImpl(null, null);
+        assertEquals(null, obj.getReturnValue());
+    }
+
+    @Test
     public void shouldReturnNoErrorIfHasErrorEqualsFalse() {
         ReturnObject obj = new ReturnObjectImpl(null, null);
         ErrorMessage test = ErrorMessage.NO_ERROR;
