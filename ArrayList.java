@@ -5,7 +5,7 @@
  */
 public class ArrayList implements List {
 
-    // Keep our list from being reduced to below a reasonable starting size
+    // Keep our storage capacity to a reasonable starting size
     public static final int minStorageSize = 4;
 
     private int size;
@@ -28,29 +28,75 @@ public class ArrayList implements List {
         if (this.isEmpty()) {
             return new ReturnObject(null, ErrorMessage.EMPTY_STRUCTURE);
         }
-        if (index < 0 || index > (this.size - 1)) {
+        if (this.outOfBounds(index)) {
             return new ReturnObject(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
         }
-
+        return storage[index];
     }
 
     public ReturnObject remove (int index) {
         if (this.isEmpty()) {
             return new ReturnObject(null, ErrorMessage.EMPTY_STRUCTURE);
         }
-
-    }
-
-    public ReturnObject add (int index, Object item) {
-        // if this is an empty list specified index can only be 0
-        if (this.isEmpty() && index != 0) {
+        if (this.outOfBounds(index)) {
             return new ReturnObject(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
         }
 
     }
 
-    public ReturnObject add (Object item) {
+    public ReturnObject add (int index, Object item) {
+        // return out of bounds if
+        // [1] this is an empty list and index is not 0
+        // [2] not empty but index is less than 0
+        // [3] index is greater than size - assume we should not have blank spaces in our list
+        if ((this.isEmpty() && index != 0) || index < 0 || index > this.size) {
+            return new ReturnObject(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
+        }
 
+        // if index == size then we simply add the item to the end
+        if (index == this.size) {
+            return this.add(item);
+        }
+
+        if (this.shouldIncreaseStorage()) {
+            this.increaseStorage();
+        }
+        ReturnObject obj = new ReturnObject(item, null);
+        // get the current item at this position
+        ReturnObject current = this.storage[index];
+        // set the new item to that position
+        this.storage[index] = obj;
+
+        // shift all remaining entries over
+        for (int i = index + 1; i <= this.size; i++) {
+            ReturnObject tmp = this.storage[i];
+            this.storage[i] = current;
+            current = tmp;
+        }
+        this.size++;
+        return obj;
+    }
+
+    public ReturnObject add (Object item) {
+        if (this.shouldIncreaseStorage()) {
+            this.increaseStorage();
+        }
+        ReturnObject obj = new ReturnObject(item, null);
+        this.storage[this.size] = obj;
+        this.size++;
+        return obj;
+    }
+
+    private boolean outOfBounds (int index) {
+        return (index < 0 || index > (this.size - 1)) ? true : false;
+    }
+
+    private boolean shouldIncreaseStorage () {
+        return this.size >= this.storage.length;
+    }
+
+    private boolean canDecreaseStorage () {
+        return (this.storage.length / 2) >= this.size;
     }
 
     /**
