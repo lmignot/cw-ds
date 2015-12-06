@@ -9,16 +9,22 @@ public class ReturnObjectImpl implements ReturnObject {
     private Object obj;
 
     /**
-     * After much deliberation decided to implement this as a single constructor
-     * Based on ErrorMessage the errors indicate that this object would have no value
-     * if there is an error. So it seems like when creating a ReturnObject we would
-     * either have an error or an object.
+     * Constructs a ReturnObject wrapping the given object
+     * Sets the default error message to ErrorMessage.NO_ERROR
      * @param obj The object to store
-     * @param error An error message if any, else defaults to null
      */
-    public ReturnObjectImpl (Object obj, ErrorMessage error) {
-        this.error = (error == null) ? ErrorMessage.NO_ERROR : error;
+    public ReturnObjectImpl (Object obj) {
+        this.error = ErrorMessage.NO_ERROR;
         this.obj = obj;
+    }
+
+    /**
+     * Constructs a ReturnObject with an error message
+     * @param error The error message
+     */
+    public ReturnObjectImpl (ErrorMessage error) {
+        this.error = error != null ? error : ErrorMessage.NO_ERROR;
+        this.obj = this.obj != null ? this.obj : null;
     }
 
     public boolean hasError () {

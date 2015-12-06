@@ -5,41 +5,41 @@ public class ReturnObjectImplTest {
 
     @Test
     public void brandNewObjectShouldReturnFalseWhenHasErrorIsCalled() {
-        ReturnObject obj = new ReturnObjectImpl(null, null);
-        assertEquals(false, obj.hasError());
+        ReturnObject obj = new ReturnObjectImpl(null);
+        assertEquals("ReturnObject with no error should return false when hasError is called", false, obj.hasError());
     }
 
     @Test
     public void emptyObjectShouldReturnNullWhenGetReturnValueIsCalled() {
-        ReturnObject obj = new ReturnObjectImpl(null, null);
-        assertEquals(null, obj.getReturnValue());
+        ReturnObject obj = new ReturnObjectImpl(null);
+        assertEquals("empty ReturnObject should return null when getReturnValue is called", null, obj.getReturnValue());
     }
 
     @Test
     public void shouldReturnNoErrorIfHasErrorEqualsFalse() {
-        ReturnObject obj = new ReturnObjectImpl(null, null);
+        ReturnObject obj = new ReturnObjectImpl(null);
         ErrorMessage test = ErrorMessage.NO_ERROR;
 
-        assertEquals(false, obj.hasError());
-        assertEquals(test, obj.getError());
+        assertEquals("hasError should equal false", false, obj.hasError());
+        assertEquals("should return NO_ERROR if hasError equals false", test, obj.getError());
     }
 
     @Test
     public void shouldReturnErrorAndNullIfHasObjectAndAlsoError() {
         ErrorMessage test = ErrorMessage.INVALID_ARGUMENT;
-        ReturnObject obj = new ReturnObjectImpl("Test", test);
+        ReturnObject obj = new ReturnObjectImpl(test);
 
-        assertEquals(true, obj.hasError());
-        assertEquals(null, obj.getReturnValue());
+        assertEquals("hasError should return true if ReturnObject has error", true, obj.hasError());
+        assertEquals("getReturnValue should return null if ReturnObject has error", null, obj.getReturnValue());
     }
 
     @Test
     public void shouldReturnObjectIfHasObjectAndHasNoError() {
         String str = "Test";
-        ReturnObject obj = new ReturnObjectImpl(str, null);
+        ReturnObject obj = new ReturnObjectImpl(str);
 
-        assertEquals(false, obj.hasError());
-        assertEquals(str, obj.getReturnValue());
+        assertEquals("hasError should be false", false, obj.hasError());
+        assertEquals("should return wrapped object if there is no error", str, obj.getReturnValue());
     }
 
 }
