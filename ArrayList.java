@@ -5,15 +5,17 @@
  */
 public class ArrayList implements List {
 
-    // Keep our storage capacity to a reasonable starting size
-    public static final int minStorageSize = 4;
+    // Constant is used:
+    // [1] to initialise data structure at a reasonable starting capacity
+    // [2] to keep minimum data structure size from going below a reasonable capacity
+    public static final int MIN_STORAGE_CAPACITY = 4;
 
     private int size;
     private Object[] storage;
 
     public ArrayList () {
         this.size = 0;
-        this.storage = new Object[minStorageSize];
+        this.storage = new Object[MIN_STORAGE_CAPACITY];
     }
 
     public boolean isEmpty () {
@@ -106,20 +108,33 @@ public class ArrayList implements List {
         return new ReturnObjectImpl(null);
     }
 
+    /**
+     * Check whether the given index is out of bounds of the data structure
+     * @param index the index to check
+     * @return true if out of bounds, false otherwise
+     */
     private boolean isOutOfBounds (int index) {
         return (index < 0 || index > (this.size - 1)) ? true : false;
     }
 
+    /**
+     * Check if we need to increase data structure capacity
+     * @return true if we should increase capacity, false otherwise
+     */
     private boolean shouldIncreaseStorage () {
         return this.size >= this.storage.length;
     }
 
+    /**
+     * Check if we can reduce data structure capacity
+     * @return true if we can decrease capacity, false otherwise
+     */
     private boolean canDecreaseStorage () {
         return (this.storage.length / 2) >= this.size;
     }
 
     /**
-     * Increases the capacity of storage Array, maintaining any data in storage
+     * Increases the capacity of data structure, maintaining any data in storage
      */
     private void increaseStorage () {
         int oldCapacity = this.storage.length;
@@ -133,14 +148,14 @@ public class ArrayList implements List {
     }
 
     /**
-     * Reduces the capacity of storage Array, maintaining any data in storage
-     * Reduced capacity will never be less than {@minStorageSize}
+     * Reduces the capacity of data structure, maintaining any data in storage
+     * Reduced capacity will never be less than {@MIN_STORAGE_SIZE}
      */
     private void decreaseStorage () {
         int oldCapacity = this.storage.length;
         int newCapacity = oldCapacity / 2;
-        if (newCapacity < this.minStorageSize) {
-            newCapacity = this.minStorageSize;
+        if (newCapacity < this.MIN_STORAGE_CAPACITY) {
+            newCapacity = this.MIN_STORAGE_CAPACITY;
         }
 
         Object[] tmp = new Object[newCapacity];
