@@ -25,26 +25,64 @@ public class ArrayList implements List {
     }
 
     public ReturnObject get (int index)  {
+        if (this.isEmpty()) {
+            return new ReturnObject(null, ErrorMessage.EMPTY_STRUCTURE);
+        }
+        if (index < 0 || index > (this.size - 1)) {
+            return new ReturnObject(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
+        }
 
     }
 
     public ReturnObject remove (int index) {
+        if (this.isEmpty()) {
+            return new ReturnObject(null, ErrorMessage.EMPTY_STRUCTURE);
+        }
 
     }
 
     public ReturnObject add (int index, Object item) {
+        // if this is an empty list specified index can only be 0
+        if (this.isEmpty() && index != 0) {
+            return new ReturnObject(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
+        }
 
     }
 
-    public ReturnObject add(Object item) {
+    public ReturnObject add (Object item) {
 
     }
 
+    /**
+     * Increases the capacity of storage Array, maintaining any data in storage
+     */
     private void increaseStorage () {
+        int oldCapacity = this.storage.length;
+        int newCapacity = oldCapacity * 2;
+        Object[] tmp = new Object[newCapacity];
 
+        for (int i = 0; i < this.size; i++) {
+            tmp[i] = this.storage[i];
+        }
+        this.storage = tmp;
     }
 
+    /**
+     * Reduces the capacity of storage Array, maintaining any data in storage
+     * Reduced capacity will never be less than {@minStorageSize}
+     */
     private void decreaseStorage () {
+        int oldCapacity = this.storage.length;
+        int newCapacity = oldCapacity / 2;
+        if (newCapacity < this.minStorageSize) {
+            newCapacity = this.minStorageSize;
+        }
 
+        Object[] tmp = new Object[newCapacity];
+
+        for (int i = 0; i < this.size; i++) {
+            tmp[i] = this.storage[i];
+        }
+        this.storage = tmp;
     }
 }
