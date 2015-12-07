@@ -1,15 +1,11 @@
 /**
- * Implementation of List as an ArrayList
+ * Implementation of a List as an ArrayList
  *
  * @author Laurent Mignot
  */
 public class ArrayList implements List {
 
-    // Constant is used:
-    // [1] to initialise data structure at a reasonable starting capacity
-    // [2] to keep minimum data structure size from going below a reasonable capacity
-    public static final int MIN_STORAGE_CAPACITY = 4;
-
+    private final static int MIN_STORAGE_CAPACITY = 20;
     private int size;
     private Object[] storage;
 
@@ -18,14 +14,26 @@ public class ArrayList implements List {
         this.storage = new Object[MIN_STORAGE_CAPACITY];
     }
 
+    /**
+     * @see List#isEmpty()
+     */
+    @Override
     public boolean isEmpty () {
         return this.size == 0;
     }
 
+    /**
+     * @see List#size()
+     */
+    @Override
     public int size () {
         return this.size;
     }
 
+    /**
+     * @see List#get()
+     */
+    @Override
     public ReturnObject get (int index)  {
         if (this.isEmpty()) {
             return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
@@ -36,6 +44,10 @@ public class ArrayList implements List {
         return new ReturnObjectImpl(this.storage[index]);
     }
 
+    /**
+     * @see List#remove()
+     */
+    @Override
     public ReturnObject remove (int index) {
         if (this.isEmpty()) {
             return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
@@ -59,33 +71,26 @@ public class ArrayList implements List {
         return obj;
     }
 
+    /**
+     * @see List#add(int, Object)
+     */
+    @Override
     public ReturnObject add (int index, Object item) {
         if (item == null) {
             return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
         }
 
-        // return out of bounds if
-        // [1] this is an empty list and index is not 0
-        // [2] not empty but index is less than 0
-        // [3] index is greater than size (assume we should not have blank spaces in our list)
-        if ((this.isEmpty() && index != 0) || index < 0 || index > this.size) {
+        if (this.isEmpty() || this.isOutOfBounds(index)) {
             return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
-        }
-
-        // if index equals size then we simply add the item to the end
-        if (index == this.size) {
-            return this.add(item);
         }
 
         if (this.shouldIncreaseStorage()) {
             this.increaseStorage();
         }
-        // get the current item at the index
+
         Object current = this.storage[index];
-        // set the new item to that index
         this.storage[index] = item;
 
-        // shift all remaining entries over
         for (int i = index + 1; i <= this.size; i++) {
             Object tmp = this.storage[i];
             this.storage[i] = current;
@@ -95,6 +100,10 @@ public class ArrayList implements List {
         return new ReturnObjectImpl(null);
     }
 
+    /**
+     * @see List#add(Object)
+     */
+    @Override
     public ReturnObject add (Object item) {
         if (item == null) {
             return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
@@ -109,16 +118,16 @@ public class ArrayList implements List {
     }
 
     /**
-     * Check whether the given index is out of bounds of the data structure
+     * Checks whether the given index is out of bounds of the data structure
      * @param index the index to check
      * @return true if out of bounds, false otherwise
      */
     private boolean isOutOfBounds (int index) {
-        return (index < 0 || index > (this.size - 1)) ? true : false;
+        return (index < 0 || index > (this.size - 1));
     }
 
     /**
-     * Check if we need to increase data structure capacity
+     * Checks if we need to increase data structure capacity
      * @return true if we should increase capacity, false otherwise
      */
     private boolean shouldIncreaseStorage () {
@@ -126,7 +135,7 @@ public class ArrayList implements List {
     }
 
     /**
-     * Check if we can reduce data structure capacity
+     * Checks if we can reduce data structure capacity
      * @return true if we can decrease capacity, false otherwise
      */
     private boolean canDecreaseStorage () {

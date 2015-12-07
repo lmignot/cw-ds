@@ -69,7 +69,7 @@ public class ArrayListTest {
                 outOfBoundsTest2.getError(), ErrorMessage.INDEX_OUT_OF_BOUNDS);
         assertEquals("it should still have size 11", list.size(), 11);
 
-        list.add(11, eleven);
+        list.add(eleven);
         ReturnObject elevenReturn = list.get(11);
         assertEquals("it should now have size 12", list.size(), 12);
         assertEquals("returned object should have no error", elevenReturn.hasError(), false);
@@ -113,17 +113,17 @@ public class ArrayListTest {
         double twelve = 89.98;
 
         list.add(zero);
-        list.add(one); // 1
-        list.add(two); // 2
-        list.add(three); // 4
-        list.add(2, four); // 0
-        list.add(five); // 6
-        list.add(six); // 7
-        list.add(5, seven); // 3
-        list.add(eight); // 8
-        list.add(nine); // 10
-        list.add(7, ten); // 5
-        list.add(11, eleven); // 9
+        list.add(one);
+        list.add(two);
+        list.add(three);
+        list.add(2, four);
+        list.add(five);
+        list.add(six);
+        list.add(5, seven);
+        list.add(eight);
+        list.add(nine);
+        list.add(7, ten);
+        list.add(eleven);
         list.add(0, twelve);
 
         assertEquals("it should not be empty", list.isEmpty(), false);
@@ -179,4 +179,26 @@ public class ArrayListTest {
         assertEquals("it should still be empty", list.isEmpty(), true);
     }
 
+    @Test
+    public void stressTest() {
+        ArrayList list = new ArrayList();
+        int oneMillion = 1000000;
+
+        for (int i = 0; i < oneMillion; i++) {
+            if (i % 2 == 0) {
+                list.add("xyz-" + i);
+            } else {
+                list.add(i);
+            }
+        }
+
+        assertEquals("list should have 1 million items", list.size(), oneMillion);
+
+        for (int i = oneMillion - 1; i >= 0; i--) {
+            list.remove(i);
+        }
+
+        assertEquals("list should be empty", list.isEmpty(), true);
+        assertEquals("list should have size 0", list.size(), 0);
+    }
 }

@@ -20,21 +20,34 @@ public class ReturnObjectImpl implements ReturnObject {
 
     /**
      * Constructs a ReturnObject with an error message
+     * If null is passed, the error state defaults to ErrorMessage.NO_ERROR
      * @param error The error message
      */
     public ReturnObjectImpl (ErrorMessage error) {
-        this.error = error != null ? error : ErrorMessage.NO_ERROR;
-        this.obj = this.obj != null ? this.obj : null;
+        this.error = (error != null) ? error : ErrorMessage.NO_ERROR;
+        this.obj = null;
     }
 
+    /**
+     * @see ReturnObject#hasError()
+     */
+    @Override
     public boolean hasError () {
         return (this.error != null && this.error != ErrorMessage.NO_ERROR);
     };
 
+    /**
+     * @see ReturnObject#getError()
+     */
+    @Override
     public ErrorMessage getError () {
         return this.error;
     };
 
+    /**
+     * @see ReturnObject#getReturnValue()
+     */
+    @Override
     public Object getReturnValue () {
         return !this.hasError() ? this.obj : null;
     };
