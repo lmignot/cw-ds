@@ -20,7 +20,17 @@ public class FunctionalLinkedList extends LinkedList implements FunctionalList {
      */
     @Override
     public FunctionalList rest () {
-        // @TODO: implement this
-        return this; // temporary
+
+        FunctionalList list = new FunctionalLinkedList();
+
+        if (this.isEmpty()) {
+            return list;
+        }
+
+        for (int i = 1; i < this.size; i++) {
+            list.add(this.get(i));
+        }
+
+        return list;
     }
 }
