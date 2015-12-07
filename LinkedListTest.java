@@ -1,11 +1,11 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 
-public class ArrayListTest {
+public class LinkedListTest {
 
     @Test
     public void emptyList() {
-        ArrayList list = new ArrayList();
+        List list = new LinkedList();
 
         assertEquals("it should have size 0", list.size(), 0);
         assertEquals("it should be empty", list.isEmpty(), true);
@@ -18,7 +18,7 @@ public class ArrayListTest {
 
     @Test
     public void addToList() {
-        ArrayList list = new ArrayList();
+        List list = new LinkedList();
         int zero = 1;
         String one = "Some value";
         double two = 10.242;
@@ -96,7 +96,7 @@ public class ArrayListTest {
 
     @Test
     public void removeFromList() {
-        ArrayList list = new ArrayList();
+        List list = new LinkedList();
 
         int zero = 1;
         String one = "Some value";
@@ -173,15 +173,16 @@ public class ArrayListTest {
         ReturnObject outOfBoundsTest3 = list.add(2, zero);
         assertEquals("returned object should have error",
                 outOfBoundsTest3.hasError(), true);
-        assertEquals("returned object should have out of bounds error",
-                outOfBoundsTest3.getError(), ErrorMessage.INDEX_OUT_OF_BOUNDS);
+        assertEquals("returned object should have error EMPTY_STRUCTURE",
+                outOfBoundsTest3.getError(), ErrorMessage.EMPTY_STRUCTURE);
         assertEquals("it should still have size 0", list.size(), 0);
         assertEquals("it should still be empty", list.isEmpty(), true);
     }
 
     @Test
     public void stressTest() {
-        ArrayList list = new ArrayList();
+        List list = new LinkedList();
+
         int oneMillion = 1000000;
 
         for (int i = 0; i < oneMillion; i++) {

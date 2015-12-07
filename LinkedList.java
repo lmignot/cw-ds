@@ -42,8 +42,14 @@ public class LinkedList implements List {
         if (this.isOutOfBounds(index)) {
             return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
         }
-        // @TODO: implement this
-        return new ReturnObjectImpl(null);
+
+        if (index == 0) {
+            return new ReturnObjectImpl(this.head.getValue());
+        } else if (index == (this.size - 1)) {
+            return new ReturnObjectImpl(this.tail.getValue());
+        } else {
+            return new ReturnObjectImpl(this.getNodeAtIndex(index).getValue());
+        }
     }
 
     /**
@@ -58,11 +64,26 @@ public class LinkedList implements List {
             return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
         }
 
-        // @TODO: implement
-        ReturnObject obj = new ReturnObjectImpl(null);
+        Node toRemove;
+
+        if (index == 0) {
+            toRemove = this.head;
+            this.head = toRemove.getNext();
+        } else if (index == (this.size - 1)) {
+            toRemove = this.tail;
+            this.tail = toRemove.getPrev();
+        } else {
+            toRemove = this.getNodeAtIndex(index);
+        }
+
+        Node before = toRemove.getPrev();
+        Node after = toRemove.getNext();
+
+        if (before != null) { before.setNext(after); }
+        if (after != null) { after.setPrev(before); }
 
         this.size--;
-        return obj;
+        return new ReturnObjectImpl(toRemove.getValue());
     }
 
     /**
@@ -73,23 +94,33 @@ public class LinkedList implements List {
         if (item == null) {
             return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
         }
-
-        if (this.isEmpty() || index < 0 || index >= this.size) {
+        if (this.isEmpty()) {
+            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
+        }
+        if (this.isOutOfBounds(index)) {
             return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
         }
 
-        if (this.shouldIncreaseStorage()) {
-            this.increaseStorage();
+        Node newNode = new Node(item);
+
+        if (index == 0) {
+            Node first = this.head;
+            this.head = newNode;
+            this.head.setNext(first);
+            first.setPrev(this.head);
+        } else if (index == (this.size - 1)) {
+            Node last = this.tail;
+            this.tail = newNode;
+            this.tail.setPrev(last);
+            last.setNext(this.tail);
+        } else {
+            Node addAfter = this.getNodeAtIndex(index - 1);
+            newNode.setNext(addAfter.getNext());
+            addAfter.getNext().setPrev(newNode);
+            addAfter.setNext(newNode);
+            newNode.setPrev(addAfter);
         }
 
-        Object current = this.storage[index];
-        this.storage[index] = item;
-
-        for (int i = index + 1; i <= this.size; i++) {
-            Object tmp = this.storage[i];
-            this.storage[i] = current;
-            current = tmp;
-        }
         this.size++;
         return new ReturnObjectImpl(null);
     }
@@ -102,13 +133,47 @@ public class LinkedList implements List {
         if (item == null) {
             return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
         }
-        if (this.shouldIncreaseStorage()) {
-            this.increaseStorage();
+
+        if (this.head == null) {
+            this.head = new Node(item);
+            this.tail = this.head;
+        } else {
+            Node last = this.tail;
+            this.tail = new Node(item);
+            this.tail.setPrev(last);
+            last.setNext(this.tail);
         }
 
-        this.storage[this.size] = item;
         this.size++;
         return new ReturnObjectImpl(null);
+    }
+
+    /**
+     * Retrieves a Node in the list at the given index
+     * @param index
+     * @return the Node at the given index
+     */
+    private Node getNodeAtIndex (int index) {
+        int currentIndex = 0;
+        Node current;
+
+        if (index > Math.abs((this.size - 1) / 2)) {
+            current = this.tail;
+            currentIndex = this.size - 1;
+            while (current.getPrev() != null) {
+                if (currentIndex == index) { break; }
+                current = current.getPrev();
+                currentIndex--;
+            }
+        } else {
+            current = this.head;
+            while (current.getNext() != null) {
+                if (currentIndex == index) { break; }
+                current = current.getNext();
+                currentIndex++;
+            }
+        }
+        return current;
     }
 
     /**
