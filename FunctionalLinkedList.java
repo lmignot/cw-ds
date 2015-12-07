@@ -1,9 +1,9 @@
 /**
- * Implementation of FunctionalList extending ArrayList
+ * Implementation of FunctionalList extending LinkedList
  *
  * @author Laurent Mignot
  */
-public class FunctionalArrayList extends ArrayList implements FunctionalList {
+public class FunctionalLinkedList extends LinkedList implements FunctionalList {
     /**
      * @see FunctionalList#head()
      */
@@ -12,7 +12,7 @@ public class FunctionalArrayList extends ArrayList implements FunctionalList {
         if (this.isEmpty()) {
             return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
         }
-        return new ReturnObjectImpl(this.storage[0]);
+        return new ReturnObjectImpl(this.head.getValue());
     }
 
     /**
