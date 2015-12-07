@@ -22,7 +22,7 @@ public class FunctionalArrayList extends ArrayList implements FunctionalList {
     public FunctionalList rest () {
         FunctionalList list = new FunctionalArrayList();
 
-        if (this.isEmpty()) {
+        if (this.isEmpty() || this.size == 1) {
             return list;
         }
 

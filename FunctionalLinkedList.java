@@ -23,7 +23,7 @@ public class FunctionalLinkedList extends LinkedList implements FunctionalList {
 
         FunctionalList list = new FunctionalLinkedList();
 
-        if (this.isEmpty()) {
+        if (this.isEmpty() || this.size == 1) {
             return list;
         }
 
