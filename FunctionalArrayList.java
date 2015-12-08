@@ -12,7 +12,7 @@ public class FunctionalArrayList extends ArrayList implements FunctionalList {
         if (this.isEmpty()) {
             return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
         }
-        return new ReturnObjectImpl(this.storage[0]);
+        return new ReturnObjectImpl(this.get(0).getReturnValue());
     }
 
     /**
@@ -22,12 +22,14 @@ public class FunctionalArrayList extends ArrayList implements FunctionalList {
     public FunctionalList rest () {
         FunctionalList list = new FunctionalArrayList();
 
-        if (this.isEmpty() || this.size == 1) {
+        if (this.isEmpty() || this.size() == 1) {
             return list;
         }
-        // not efficient, @TODO: improve this
-        for (int i = 1; i < this.size; i++) {
-            list.add(this.get(i));
+
+        int length = this.size();
+
+        for (int i = 1; i < length; i++) {
+            list.add(this.get(i).getReturnValue());
         }
 
         return list;
