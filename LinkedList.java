@@ -57,9 +57,9 @@ public class LinkedList implements List {
      */
     @Override
     public ReturnObject remove (int index) {
-        if (this.isEmpty()) {
-            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
-        }
+//        if (this.isEmpty()) {
+//            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
+//        }
         if (this.isOutOfBounds(index)) {
             return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
         }
@@ -94,9 +94,9 @@ public class LinkedList implements List {
         if (item == null) {
             return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
         }
-        if (this.isEmpty()) {
-            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
-        }
+//        if (this.isEmpty()) {
+//            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
+//        }
         if (this.isOutOfBounds(index)) {
             return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
         }

@@ -12,8 +12,8 @@ public class ArrayListTest {
 
         assertEquals("it should return EMPTY_STRUCTURE when get is called",
                 list.get(2).getError(), ErrorMessage.EMPTY_STRUCTURE);
-        assertEquals("it should return EMPTY_STRUCTURE when remove is called",
-                list.remove(4).getError(), ErrorMessage.EMPTY_STRUCTURE);
+        assertEquals("it should return INDEX_OUT_OF_BOUNDS when remove is called",
+                list.remove(4).getError(), ErrorMessage.INDEX_OUT_OF_BOUNDS);
     }
 
     @Test
@@ -167,14 +167,14 @@ public class ArrayListTest {
         assertEquals("it should be empty", list.isEmpty(), true);
         assertEquals("it should return EMPTY_STRUCTURE when get is called",
                 list.get(2).getError(), ErrorMessage.EMPTY_STRUCTURE);
-        assertEquals("it should return EMPTY_STRUCTURE when remove is called",
-                list.remove(4).getError(), ErrorMessage.EMPTY_STRUCTURE);
+        assertEquals("it should return INDEX_OUT_OF_BOUNDS when remove is called",
+                list.remove(4).getError(), ErrorMessage.INDEX_OUT_OF_BOUNDS);
 
         ReturnObject outOfBoundsTest3 = list.add(2, zero);
         assertEquals("returned object should have error",
                 outOfBoundsTest3.hasError(), true);
-        assertEquals("returned object should have error EMPTY_STRUCTURE",
-                outOfBoundsTest3.getError(), ErrorMessage.EMPTY_STRUCTURE);
+        assertEquals("returned object should have error INDEX_OUT_OF_BOUNDS",
+                outOfBoundsTest3.getError(), ErrorMessage.INDEX_OUT_OF_BOUNDS);
         assertEquals("it should still have size 0", list.size(), 0);
         assertEquals("it should still be empty", list.isEmpty(), true);
     }
