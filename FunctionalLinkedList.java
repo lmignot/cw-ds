@@ -27,12 +27,20 @@ public class FunctionalLinkedList extends LinkedList implements FunctionalList {
             return list;
         }
 
-        int length = this.size();
+//        int length = this.size();
+//
+//        // this takes waaaay too long
+//        // @TODO: improve this
+//        for (int i = 1; i < length; i++) {
+//            list.add(this.get(i).getReturnValue());
+//        }
 
-        // this takes waaaay too long
-        // @TODO: improve this
-        for (int i = 1; i < length; i++) {
-            list.add(this.get(i).getReturnValue());
+        Node current = this.getHead().getNext();
+        list.add(new Node(current.getValue()));
+
+        while (current.getNext() != null) {
+            current = current.getNext();
+            list.add(new Node(current.getValue()));
         }
 
         return list;

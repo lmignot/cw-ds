@@ -148,6 +148,10 @@ public class LinkedList implements List {
         return new ReturnObjectImpl(null);
     }
 
+    public Node getHead () {
+        return this.head;
+    }
+
     /**
      * Retrieves a Node in the list at the given index
      * @param index
