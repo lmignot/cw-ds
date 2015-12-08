@@ -25,7 +25,7 @@ public class FunctionalArrayList extends ArrayList implements FunctionalList {
         if (this.isEmpty() || this.size == 1) {
             return list;
         }
-
+        // not efficient, @TODO: improve this
         for (int i = 1; i < this.size; i++) {
             list.add(this.get(i));
         }
