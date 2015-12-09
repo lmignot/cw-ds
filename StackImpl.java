@@ -5,38 +5,52 @@
  */
 public class StackImpl extends AbstractStack {
 
+    public StackImpl (List list) {
+        super(list);
+    }
+
     /**
      * @see Stack#isEmpty()
      */
     public boolean isEmpty () {
-        return true;
+        return this.internalList.isEmpty();
     }
 
     /**
      * @see Stack#size()
      */
     public int size () {
-        return 0;
+        return this.internalList.size();
     }
 
     /**
      * @see Stack#push()
      */
     public void push (Object item) {
-
+        if (item != null) {
+            this.internalList.add(item);
+        }
     }
 
     /**
      * @see Stack#top()
      */
     public ReturnObject top () {
-        return new ReturnObjectImpl(null);
+        if (this.isEmpty()) {
+            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
+        }
+
+        return this.internalList.get(this.size() - 1);
     }
 
     /**
      * @see Stack#pop()
      */
     public ReturnObject pop() {
-        return new ReturnObjectImpl(null);
+        if (this.isEmpty()) {
+            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
+        }
+
+        return this.internalList.remove(this.size() - 1);
     }
 }
