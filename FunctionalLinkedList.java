@@ -35,7 +35,7 @@ public class FunctionalLinkedList extends LinkedList implements FunctionalList {
 //            list.add(this.get(i).getReturnValue());
 //        }
 
-        Node current = this.getHead().getNext();
+        Node current = this.getNodeAtIndex(1);
         list.add(new Node(current.getValue()));
 
         while (current.getNext() != null) {
