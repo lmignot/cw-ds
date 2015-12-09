@@ -19,7 +19,7 @@ public class SampleableListTest {
 
         SampleableList sample = list.sample();
 
-        assertEquals("list should have 500000 items", sample.size(), fiveHundredK);
+        assertEquals("sample should have 500000 items", sample.size(), fiveHundredK);
 
         ReturnObject oneA = list.get(0);
         ReturnObject oneB = sample.get(0);
@@ -32,5 +32,15 @@ public class SampleableListTest {
 
         assertEquals("threeA should be the same as twoB",
                 threeA.getReturnValue(), twoB.getReturnValue());
+    }
+
+    @Test
+    public void emptySampleableList() {
+        SampleableList list = new SampleableListImpl();
+        SampleableList sample = list.sample();
+
+        assertEquals("sample should have 0 items", sample.size(), 0);
+        assertEquals("sample should be empty", sample.isEmpty(), true);
+
     }
 }
