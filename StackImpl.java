@@ -6,28 +6,38 @@
 public class StackImpl extends AbstractStack {
 
     public StackImpl (List list) {
-        super(list);
+        if (list != null) {
+            super(list);
+        }
     }
 
     /**
      * @see Stack#isEmpty()
      */
     public boolean isEmpty () {
-        return this.internalList.isEmpty();
+        if (this.internalList != null) {
+            return this.internalList.isEmpty();
+        } else {
+            return true;
+        }
     }
 
     /**
      * @see Stack#size()
      */
     public int size () {
-        return this.internalList.size();
+        if (this.internalList != null) {
+            return this.internalList.size();
+        } else {
+            return 0;
+        }
     }
 
     /**
      * @see Stack#push()
      */
     public void push (Object item) {
-        if (item != null) {
+        if (this.internalList != null && item != null) {
             this.internalList.add(item);
         }
     }
