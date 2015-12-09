@@ -5,7 +5,7 @@
  */
 public class ArrayList implements List {
 
-    private final static int MIN_STORAGE_CAPACITY = 20;
+    private final static int MIN_STORAGE_CAPACITY = 100;
     private int size;
     private Object[] storage;
 
