@@ -62,7 +62,7 @@ public class ImprovedStackImpl implements ImprovedStack {
     /**
      * @see Stack#pop()
      */
-    public ReturnObject pop() {
+    public ReturnObject pop () {
         if (this.isEmpty()) {
             return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
         }
@@ -73,14 +73,28 @@ public class ImprovedStackImpl implements ImprovedStack {
     /**
      * @see ImprovedStack#reverse()
      */
-    public ImprovedStack reverse() {
-        return new ImprovedStackImpl();
+    public ImprovedStack reverse () {
+        List newList = new ArrayList();
+
+        if (!this.isEmpty()) {
+            for (int i = this.dataStructure.size() - 1; i >= 0; i--) {
+                newList.add(this.dataStructure.get(i).getReturnValue());
+            }
+        }
+
+        return new ImprovedStackImpl(newList);
     };
 
     /**
      * @see ImprovedStack#remove()
      */
-    public void remove(Object object) {
-
+    public void remove (Object object) {
+        if (!this.isEmpty()) {
+            for (int i = 0; i < this.dataStructure.size(); i++) {
+                if (this.dataStructure.get(i).getReturnValue().equals(object)){
+                    this.dataStructure.remove(i);
+                }
+            }
+        }
     }
 }
