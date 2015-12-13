@@ -45,17 +45,16 @@ public class ArrayList implements List {
     }
 
     /**
+     * I've chosen to not check for isEmpty in this scenario as
+     * the isOutOfBounds check would return true for an empty structure
+     * empty size: (0 - 1 = -1 = < 0)
      * @see List#remove()
      */
     @Override
     public ReturnObject remove (int index) {
-//        if (this.isEmpty()) {
-//            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
-//        }
         if (this.isOutOfBounds(index)) {
             return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
         }
-
         ReturnObject obj = new ReturnObjectImpl(this.storage[index]);
 
         for (int i = index; i < this.size; i++) {
@@ -76,14 +75,11 @@ public class ArrayList implements List {
      */
     @Override
     public ReturnObject add (int index, Object item) {
+        if (this.isOutOfBounds(index)) {
+            return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
+        }
         if (item == null) {
             return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
-        }
-//        if (this.isEmpty()) {
-//            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
-//        }
-        if (this.isEmpty() || this.isOutOfBounds(index)) {
-            return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
         }
 
         if (this.shouldIncreaseStorage()) {

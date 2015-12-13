@@ -53,17 +53,16 @@ public class LinkedList implements List {
     }
 
     /**
+     * I've chosen to not check for isEmpty in this scenario as
+     * the isOutOfBounds check would return true for an empty structure
+     * empty size: (0 - 1 = -1 = < 0)
      * @see List#remove()
      */
     @Override
     public ReturnObject remove (int index) {
-//        if (this.isEmpty()) {
-//            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
-//        }
         if (this.isOutOfBounds(index)) {
             return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
         }
-
         Node toRemove;
 
         if (index == 0) {
@@ -91,14 +90,11 @@ public class LinkedList implements List {
      */
     @Override
     public ReturnObject add (int index, Object item) {
-        if (item == null) {
-            return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
-        }
-//        if (this.isEmpty()) {
-//            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
-//        }
         if (this.isOutOfBounds(index)) {
             return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
+        }
+        if (item == null) {
+            return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
         }
 
         Node newNode = new Node(item);
@@ -151,9 +147,14 @@ public class LinkedList implements List {
     /**
      * Retrieves a Node in the list at the given index
      * @param index
-     * @return the Node at the given index
+     * @return the Node at the given index, or an empty
+     * Node if given index is out of bounds
      */
     protected Node getNodeAtIndex (int index) {
+        if (this.isOutOfBounds(index)) {
+            return new Node(null);
+        }
+
         int currentIndex = 0;
         Node current;
 
