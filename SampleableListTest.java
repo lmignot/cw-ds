@@ -32,6 +32,12 @@ public class SampleableListTest {
 
         assertEquals("threeA should be the same as twoB",
                 threeA.getReturnValue(), twoB.getReturnValue());
+
+        ReturnObject fiveA = list.get(4);
+        ReturnObject threeB = sample.get(2);
+
+        assertEquals("fiveA should be the same as threeB",
+                fiveA.getReturnValue(), threeB.getReturnValue());
     }
 
     @Test
