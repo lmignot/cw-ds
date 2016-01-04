@@ -11,39 +11,29 @@ public class ImprovedStackImpl implements ImprovedStack {
 
     protected List dataStructure;
 
-    public ImprovedStackImpl (List list) {
-        if (list != null) {
-            this.dataStructure = list;
-        }
+    public ImprovedStackImpl () {
+        this.dataStructure = new ArrayList();
     }
 
     /**
      * @see Stack#isEmpty()
      */
     public boolean isEmpty () {
-        if (this.dataStructure != null) {
-            return this.dataStructure.isEmpty();
-        } else {
-            return true;
-        }
+        return this.dataStructure.isEmpty();
     }
 
     /**
      * @see Stack#size()
      */
     public int size () {
-        if (this.dataStructure != null) {
-            return this.dataStructure.size();
-        } else {
-            return 0;
-        }
+        return this.dataStructure.size();
     }
 
     /**
      * @see Stack#push()
      */
     public void push (Object item) {
-        if (this.dataStructure != null && item != null) {
+        if (item != null) {
             this.dataStructure.add(item);
         }
     }
@@ -74,15 +64,15 @@ public class ImprovedStackImpl implements ImprovedStack {
      * @see ImprovedStack#reverse()
      */
     public ImprovedStack reverse () {
-        List newList = new ArrayList();
+        ImprovedStack newStack = new ImprovedStackImpl();
 
         if (!this.isEmpty()) {
             for (int i = this.dataStructure.size() - 1; i >= 0; i--) {
-                newList.add(this.dataStructure.get(i).getReturnValue());
+                newStack.push(this.dataStructure.get(i).getReturnValue());
             }
         }
 
-        return new ImprovedStackImpl(newList);
+        return newStack;
     };
 
     /**

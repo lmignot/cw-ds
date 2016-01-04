@@ -5,7 +5,7 @@ public class ImprovedStackTest {
 
     @Test
     public void testImprovedStackRemove() {
-        ImprovedStack stack = new ImprovedStackImpl(new ArrayList());
+        ImprovedStack stack = new ImprovedStackImpl();
         int oneMillion = 50000;
         int fiveHundredK = 25000;
 
@@ -31,7 +31,7 @@ public class ImprovedStackTest {
 
     @Test
     public void testImprovedStackReverse() {
-        ImprovedStack stack = new ImprovedStackImpl(new ArrayList());
+        ImprovedStack stack = new ImprovedStackImpl();
         int oneMillion = 1000000;
 
         for (int i = 0; i < oneMillion; i++) {
