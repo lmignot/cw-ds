@@ -6,9 +6,7 @@
 public class StackImpl extends AbstractStack {
 
     public StackImpl (List list) {
-        if (list != null) {
-            super(list);
-        }
+        super(list);
     }
 
     /**
@@ -56,7 +54,7 @@ public class StackImpl extends AbstractStack {
     /**
      * @see Stack#pop()
      */
-    public ReturnObject pop() {
+    public ReturnObject pop () {
         if (this.isEmpty()) {
             return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
         }
