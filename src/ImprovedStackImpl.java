@@ -38,7 +38,7 @@ public class ImprovedStackImpl implements ImprovedStack {
      * @see Stack#top()
      */
     public ReturnObject top () {
-        if (this.dataStructure == null || this.isEmpty()) {
+        if (this.isEmpty()) {
             return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
         }
 
@@ -49,7 +49,7 @@ public class ImprovedStackImpl implements ImprovedStack {
      * @see Stack#pop()
      */
     public ReturnObject pop () {
-        if (this.dataStructure == null || this.isEmpty()) {
+        if (this.isEmpty()) {
             return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
         }
 
