@@ -13,22 +13,14 @@ public class StackImpl extends AbstractStack {
      * @see Stack#isEmpty()
      */
     public boolean isEmpty () {
-        if (this.internalList != null) {
-            return this.internalList.isEmpty();
-        } else {
-            return true;
-        }
+        return this.internalList != null ? this.internalList.isEmpty() : true;
     }
 
     /**
      * @see Stack#size()
      */
     public int size () {
-        if (this.internalList != null) {
-            return this.internalList.size();
-        } else {
-            return 0;
-        }
+        return this.internalList != null ? this.internalList.size() : 0;
     }
 
     /**
