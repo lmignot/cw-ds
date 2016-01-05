@@ -5,7 +5,7 @@ public class ImprovedStackTest {
 
     @Test
     public void improvedStackTest() {
-        ImprovedStack stack = new ImprovedStackImpl();
+        ImprovedStack stack = new ImprovedStackImpl(new ArrayList());
 
         assertEquals("stack should be empty", stack.isEmpty(), true);
         assertEquals("stack should have size 0", stack.size(), 0);
@@ -25,8 +25,33 @@ public class ImprovedStackTest {
     }
 
     @Test
+    public void improvedStackNullTest() {
+        Stack stack = new ImprovedStackImpl(null);
+
+        assertEquals("stack should be empty", stack.isEmpty(), true);
+        assertEquals("stack should have size 0", stack.size(), 0);
+
+        stack.push("Sample item");
+
+        assertEquals("stack should still be empty", stack.isEmpty(), true);
+        assertEquals("stack should still have size 0", stack.size(), 0);
+
+        ReturnObject top = stack.top();
+
+        assertEquals("top should have an error", top.hasError(), true);
+        assertEquals("top should return empty structure error", top.getError(), ErrorMessage.EMPTY_STRUCTURE);
+        assertEquals("top should return null as value", top.getReturnValue(), null);
+
+        ReturnObject pop = stack.pop();
+
+        assertEquals("pop should have an error", pop.hasError(), true);
+        assertEquals("pop should return empty structure error", pop.getError(), ErrorMessage.EMPTY_STRUCTURE);
+        assertEquals("pop should return null as value", pop.getReturnValue(), null);
+    }
+
+    @Test
     public void improvedStackStressTest() {
-        ImprovedStack stack = new ImprovedStackImpl();
+        ImprovedStack stack = new ImprovedStackImpl(new ArrayList());
 
         int oneMillion = 1000000;
 
@@ -59,33 +84,43 @@ public class ImprovedStackTest {
 
     @Test
     public void testImprovedStackRemove() {
-        ImprovedStack stack = new ImprovedStackImpl();
-        int fiftyK = 50000;
-        int fiveHundredK = 25000;
+        ImprovedStack stack = new ImprovedStackImpl(new ArrayList());
+        int oneFiftyK = 150000;
+        int seventyFiveK = oneFiftyK / 2;
+        String stringOdd = "Test string " + 1;
+        String stringEven = "Test string " + 2;
 
-        for (int i = 0; i < fiftyK; i++) {
+        for (int i = 0; i < oneFiftyK; i++) {
             if (i % 2 == 0) {
-                stack.push("Test string " + 2);
+                stack.push(stringEven);
             } else {
-                stack.push("Test string " + 1);
+                stack.push(stringOdd);
             }
         }
 
-        assertEquals("stack should have 50k items",
-                stack.size(), fiftyK);
+        assertEquals("stack should have 150k items",
+                stack.size(), oneFiftyK);
 
         assertEquals("stack should not be empty",
                 stack.isEmpty(), false);
 
-        stack.remove("Test string " + 2);
+        stack.remove(stringEven);
 
-        assertEquals("stack should now have 25k items",
-                stack.size(), fiveHundredK);
+        assertEquals("stack should now have 75k items",
+                stack.size(), seventyFiveK);
+
+        stack.remove(stringOdd);
+
+        assertEquals("stack should now have 0 items",
+                stack.size(), 0);
+
+        assertEquals("stack should be empty",
+                stack.isEmpty(), true);
     }
 
     @Test
     public void testImprovedStackReverse() {
-        ImprovedStack stack = new ImprovedStackImpl();
+        ImprovedStack stack = new ImprovedStackImpl(new ArrayList());
         int oneMillion = 1000000;
 
         for (int i = 0; i < oneMillion; i++) {
@@ -99,6 +134,15 @@ public class ImprovedStackTest {
                 stack.isEmpty(), false);
 
         ImprovedStack reverse = stack.reverse();
+
+        assertEquals("stack should have one million items",
+                stack.size(), oneMillion);
+
+        assertEquals("stack should not be empty",
+                stack.isEmpty(), false);
+
+        assertEquals("stack top should equal one million",
+                stack.top().getReturnValue(), oneMillion);
 
         assertEquals("reverse should have one million items",
                 reverse.size(), oneMillion);
