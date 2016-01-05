@@ -10,6 +10,34 @@ public class StackTest {
         assertEquals("stack should be empty", stack.isEmpty(), true);
         assertEquals("stack should have size 0", stack.size(), 0);
 
+        String test = "Sample item";
+
+        stack.push(test);
+
+        ReturnObject top = stack.top();
+        assertEquals("top should not have an error", top.hasError(), false);
+        assertEquals("top should return no error", top.getError(), ErrorMessage.NO_ERROR);
+        assertEquals("top should return correct value", top.getReturnValue(), test);
+
+        ReturnObject pop = stack.pop();
+        assertEquals("pop should not have an error", pop.hasError(), false);
+        assertEquals("pop should return no error", pop.getError(), ErrorMessage.NO_ERROR);
+        assertEquals("pop should return correct value", pop.getReturnValue(), test);
+
+        assertEquals("stack should be empty", stack.isEmpty(), true);
+        assertEquals("stack should have size 0", stack.size(), 0);
+
+        top = stack.top();
+
+        assertEquals("top should have an error", top.hasError(), true);
+        assertEquals("top should return empty structure error", top.getError(), ErrorMessage.EMPTY_STRUCTURE);
+        assertEquals("top should return null as value", top.getReturnValue(), null);
+
+        pop = stack.pop();
+
+        assertEquals("pop should have an error", pop.hasError(), true);
+        assertEquals("pop should return empty structure error", pop.getError(), ErrorMessage.EMPTY_STRUCTURE);
+        assertEquals("pop should return null as value", pop.getReturnValue(), null);
     }
 
     @Test
