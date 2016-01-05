@@ -80,6 +80,18 @@ public class ImprovedStackTest {
 
         assertEquals("stack should be empty", stack.isEmpty(), true);
         assertEquals("stack should have size 0", stack.size(), 0);
+
+        top = stack.top();
+
+        assertEquals("top should have an error", top.hasError(), true);
+        assertEquals("top should return empty structure error", top.getError(), ErrorMessage.EMPTY_STRUCTURE);
+        assertEquals("top should return null as value", top.getReturnValue(), null);
+
+        pop = stack.pop();
+
+        assertEquals("pop should have an error", pop.hasError(), true);
+        assertEquals("pop should return empty structure error", pop.getError(), ErrorMessage.EMPTY_STRUCTURE);
+        assertEquals("pop should return null as value", pop.getReturnValue(), null);
     }
 
     @Test
@@ -116,6 +128,27 @@ public class ImprovedStackTest {
 
         assertEquals("stack should be empty",
                 stack.isEmpty(), true);
+
+        stack.remove(stringEven);
+        stack.remove(stringOdd);
+
+        assertEquals("stack should still have 0 items",
+                stack.size(), 0);
+
+        assertEquals("stack should still be empty",
+                stack.isEmpty(), true);
+
+        ReturnObject top = stack.top();
+
+        assertEquals("top should have an error", top.hasError(), true);
+        assertEquals("top should return empty structure error", top.getError(), ErrorMessage.EMPTY_STRUCTURE);
+        assertEquals("top should return null as value", top.getReturnValue(), null);
+
+        ReturnObject pop = stack.pop();
+
+        assertEquals("pop should have an error", pop.hasError(), true);
+        assertEquals("pop should return empty structure error", pop.getError(), ErrorMessage.EMPTY_STRUCTURE);
+        assertEquals("pop should return null as value", pop.getReturnValue(), null);
     }
 
     @Test
