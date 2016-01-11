@@ -46,7 +46,7 @@ public class SampleableListTest {
         SampleableList sample = list.sample();
 
         assertEquals("sample should have 0 items", sample.size(), 0);
-        assertEquals("sample should be empty", sample.isEmpty(), true);
+        assertTrue("sample should be empty", sample.isEmpty());
 
     }
 }

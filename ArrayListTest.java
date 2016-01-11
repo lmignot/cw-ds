@@ -92,6 +92,20 @@ public class ArrayListTest {
         assertTrue("returned object should have error", nullCheck.hasError());
         assertEquals("returned object should have invalid argument error",
                 nullCheck.getError(), ErrorMessage.INVALID_ARGUMENT);
+
+        int size = list.size() - 1;
+
+        for (int i = size; i >= 0; i--) {
+            list.remove(i);
+        }
+
+        assertEquals("it should have size 0", list.size(), 0);
+        assertEquals("it should be empty", list.isEmpty(), true);
+
+        assertEquals("it should return EMPTY_STRUCTURE when get is called",
+                list.get(2).getError(), ErrorMessage.EMPTY_STRUCTURE);
+        assertEquals("it should return INDEX_OUT_OF_BOUNDS when remove is called",
+                list.remove(4).getError(), ErrorMessage.INDEX_OUT_OF_BOUNDS);
     }
 
     @Test

@@ -25,6 +25,30 @@ public class FunctionalListTest {
         assertEquals("list should have 999999 items", rest.size(), 999999);
 
         assertEquals("list should still have 1 million items", list.size(), oneMillion);
+
+        for (int i = (oneMillion - 1); i >= 0; i--) {
+            list.remove(i);
+        }
+
+        assertEquals("it should have size 0", list.size(), 0);
+        assertEquals("it should be empty", list.isEmpty(), true);
+
+        assertEquals("it should return EMPTY_STRUCTURE when get is called",
+                list.get(2).getError(), ErrorMessage.EMPTY_STRUCTURE);
+        assertEquals("it should return INDEX_OUT_OF_BOUNDS when remove is called",
+                list.remove(4).getError(), ErrorMessage.INDEX_OUT_OF_BOUNDS);
+
+        for (int i = (oneMillion - 2); i >= 0; i--) {
+            rest.remove(i);
+        }
+
+        assertEquals("it should have size 0", rest.size(), 0);
+        assertEquals("it should be empty", rest.isEmpty(), true);
+
+        assertEquals("it should return EMPTY_STRUCTURE when get is called",
+                rest.get(2).getError(), ErrorMessage.EMPTY_STRUCTURE);
+        assertEquals("it should return INDEX_OUT_OF_BOUNDS when remove is called",
+                rest.remove(4).getError(), ErrorMessage.INDEX_OUT_OF_BOUNDS);
     }
 
     @Test
@@ -49,5 +73,29 @@ public class FunctionalListTest {
         assertEquals("list should have 999999 items", 999999, rest.size());
 
         assertEquals("list should still have 1 million items", linkedList.size(), oneMillion);
+
+        for (int i = (oneMillion - 1); i >= 0; i--) {
+            linkedList.remove(i);
+        }
+
+        assertEquals("it should have size 0", linkedList.size(), 0);
+        assertEquals("it should be empty", linkedList.isEmpty(), true);
+
+        assertEquals("it should return EMPTY_STRUCTURE when get is called",
+                linkedList.get(2).getError(), ErrorMessage.EMPTY_STRUCTURE);
+        assertEquals("it should return INDEX_OUT_OF_BOUNDS when remove is called",
+                linkedList.remove(4).getError(), ErrorMessage.INDEX_OUT_OF_BOUNDS);
+
+        for (int i = (oneMillion - 2); i >= 0; i--) {
+            rest.remove(i);
+        }
+
+        assertEquals("it should have size 0", rest.size(), 0);
+        assertEquals("it should be empty", rest.isEmpty(), true);
+
+        assertEquals("it should return EMPTY_STRUCTURE when get is called",
+                rest.get(2).getError(), ErrorMessage.EMPTY_STRUCTURE);
+        assertEquals("it should return INDEX_OUT_OF_BOUNDS when remove is called",
+                rest.remove(4).getError(), ErrorMessage.INDEX_OUT_OF_BOUNDS);
     }
 }

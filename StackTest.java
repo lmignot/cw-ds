@@ -7,7 +7,7 @@ public class StackTest {
     public void stackTest() {
         Stack stack = new StackImpl(new ArrayList());
 
-        assertEquals("stack should be empty", stack.isEmpty(), true);
+        assertTrue("stack should be empty", stack.isEmpty());
         assertEquals("stack should have size 0", stack.size(), 0);
 
         String test = "Sample item";
@@ -15,12 +15,12 @@ public class StackTest {
         stack.push(test);
 
         ReturnObject top = stack.top();
-        assertEquals("top should not have an error", top.hasError(), false);
+        assertFalse("top should not have an error", top.hasError());
         assertEquals("top should return no error", top.getError(), ErrorMessage.NO_ERROR);
         assertEquals("top should return correct value", top.getReturnValue(), test);
 
         ReturnObject pop = stack.pop();
-        assertEquals("pop should not have an error", pop.hasError(), false);
+        assertFalse("pop should not have an error", pop.hasError());
         assertEquals("pop should return no error", pop.getError(), ErrorMessage.NO_ERROR);
         assertEquals("pop should return correct value", pop.getReturnValue(), test);
 
@@ -29,40 +29,40 @@ public class StackTest {
 
         top = stack.top();
 
-        assertEquals("top should have an error", top.hasError(), true);
+        assertTrue("top should have an error", top.hasError());
         assertEquals("top should return empty structure error", top.getError(), ErrorMessage.EMPTY_STRUCTURE);
-        assertEquals("top should return null as value", top.getReturnValue(), null);
+        assertNull("top should return null as value", top.getReturnValue());
 
         pop = stack.pop();
 
-        assertEquals("pop should have an error", pop.hasError(), true);
+        assertTrue("pop should have an error", pop.hasError());
         assertEquals("pop should return empty structure error", pop.getError(), ErrorMessage.EMPTY_STRUCTURE);
-        assertEquals("pop should return null as value", pop.getReturnValue(), null);
+        assertNull("pop should return null as value", pop.getReturnValue());
     }
 
     @Test
     public void stackNullTest() {
         Stack stack = new StackImpl(null);
 
-        assertEquals("stack should be empty", stack.isEmpty(), true);
+        assertTrue("stack should be empty", stack.isEmpty());
         assertEquals("stack should have size 0", stack.size(), 0);
 
         stack.push("Sample item");
 
-        assertEquals("stack should still be empty", stack.isEmpty(), true);
+        assertTrue("stack should still be empty", stack.isEmpty());
         assertEquals("stack should still have size 0", stack.size(), 0);
 
         ReturnObject top = stack.top();
 
-        assertEquals("top should have an error", top.hasError(), true);
+        assertTrue("top should have an error", top.hasError());
         assertEquals("top should return empty structure error", top.getError(), ErrorMessage.EMPTY_STRUCTURE);
-        assertEquals("top should return null as value", top.getReturnValue(), null);
+        assertNull("top should return null as value", top.getReturnValue());
 
         ReturnObject pop = stack.pop();
 
-        assertEquals("pop should have an error", pop.hasError(), true);
+        assertTrue("pop should have an error", pop.hasError());
         assertEquals("pop should return empty structure error", pop.getError(), ErrorMessage.EMPTY_STRUCTURE);
-        assertEquals("pop should return null as value", pop.getReturnValue(), null);
+        assertNull("pop should return null as value", pop.getReturnValue());
     }
 
     @Test
@@ -76,7 +76,7 @@ public class StackTest {
         }
 
         assertEquals("stack should have 1 million items", stack.size(), oneMillion);
-        assertEquals("stack should not be empty", stack.isEmpty(), false);
+        assertFalse("stack should not be empty", stack.isEmpty());
 
         ReturnObject top = stack.top();
 
@@ -94,7 +94,7 @@ public class StackTest {
             assertEquals("pop should equal correct value", pop.getReturnValue(), i);
         }
 
-        assertEquals("stack should be empty", stack.isEmpty(), true);
+        assertTrue("stack should be empty", stack.isEmpty());
         assertEquals("stack should have size 0", stack.size(), 0);
     }
 }

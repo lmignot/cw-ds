@@ -8,7 +8,7 @@ public class LinkedListTest {
         List list = new LinkedList();
 
         assertEquals("it should have size 0", list.size(), 0);
-        assertEquals("it should be empty", list.isEmpty(), true);
+        assertTrue("it should be empty", list.isEmpty());
 
         assertEquals("it should return EMPTY_STRUCTURE when get is called",
                 list.get(2).getError(), ErrorMessage.EMPTY_STRUCTURE);
