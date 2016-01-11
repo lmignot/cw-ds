@@ -44,27 +44,27 @@ public class ArrayListTest {
         list.add(eight);
         list.add(nine);
 
-        assertEquals("it should not be empty", list.isEmpty(), false);
+        assertFalse("it should not be empty", list.isEmpty());
         assertEquals("it should have size 10", list.size(), 10);
-        assertEquals("returned object should have no error", test.hasError(), false);
-        assertEquals("returned object should be empty", test.getReturnValue(), null);
+        assertFalse("returned object should have no error", test.hasError());
+        assertNull("returned object should be empty", test.getReturnValue());
 
         list.add(7, ten);
         ReturnObject tenReturn = list.get(7);
         assertEquals("it should now have size 11", list.size(), 11);
-        assertEquals("returned object should have no error", tenReturn.hasError(), false);
+        assertFalse("returned object should have no error", tenReturn.hasError());
         assertEquals("returned object should have correct value", tenReturn.getReturnValue(), ten);
 
         ReturnObject outOfBoundsTest = list.add(-2, eleven);
-        assertEquals("returned object should have error",
-                outOfBoundsTest.hasError(), true);
+        assertTrue("returned object should have error",
+                outOfBoundsTest.hasError());
         assertEquals("returned object should have out of bounds error",
                 outOfBoundsTest.getError(), ErrorMessage.INDEX_OUT_OF_BOUNDS);
         assertEquals("it should still have size 11", list.size(), 11);
 
         ReturnObject outOfBoundsTest2 = list.add(list.size() + 1, eleven);
-        assertEquals("returned object should have error",
-                outOfBoundsTest2.hasError(), true);
+        assertTrue("returned object should have error",
+                outOfBoundsTest2.hasError());
         assertEquals("returned object should have out of bounds error",
                 outOfBoundsTest2.getError(), ErrorMessage.INDEX_OUT_OF_BOUNDS);
         assertEquals("it should still have size 11", list.size(), 11);
@@ -72,24 +72,24 @@ public class ArrayListTest {
         list.add(eleven);
         ReturnObject elevenReturn = list.get(11);
         assertEquals("it should now have size 12", list.size(), 12);
-        assertEquals("returned object should have no error", elevenReturn.hasError(), false);
+        assertFalse("returned object should have no error", elevenReturn.hasError());
         assertEquals("returned object should have correct value", elevenReturn.getReturnValue(), eleven);
 
         list.add(0, twelve);
         ReturnObject twelveReturn = list.get(0);
         assertEquals("it should now have size 13", list.size(), 13);
-        assertEquals("returned object should have no error", twelveReturn.hasError(), false);
+        assertFalse("returned object should have no error", twelveReturn.hasError());
         assertEquals("returned object should have correct value", twelveReturn.getReturnValue(), twelve);
 
         ReturnObject nullCheck = list.add(null);
         assertEquals("it should still have size 13", list.size(), 13);
-        assertEquals("returned object should have error", nullCheck.hasError(), true);
+        assertTrue("returned object should have error", nullCheck.hasError());
         assertEquals("returned object should have invalid argument error",
                 nullCheck.getError(), ErrorMessage.INVALID_ARGUMENT);
 
         nullCheck = list.add(5, null);
         assertEquals("it should still have size 13", list.size(), 13);
-        assertEquals("returned object should have error", nullCheck.hasError(), true);
+        assertTrue("returned object should have error", nullCheck.hasError());
         assertEquals("returned object should have invalid argument error",
                 nullCheck.getError(), ErrorMessage.INVALID_ARGUMENT);
     }
@@ -126,19 +126,19 @@ public class ArrayListTest {
         list.add(eleven);
         list.add(0, twelve);
 
-        assertEquals("it should not be empty", list.isEmpty(), false);
+        assertFalse("it should not be empty", list.isEmpty());
         assertEquals("it should have size 13", list.size(), 13);
 
         ReturnObject outOfBoundsTest = list.remove(-2);
-        assertEquals("returned object should have error",
-                outOfBoundsTest.hasError(), true);
+        assertTrue("returned object should have error",
+                outOfBoundsTest.hasError());
         assertEquals("returned object should have out of bounds error",
                 outOfBoundsTest.getError(), ErrorMessage.INDEX_OUT_OF_BOUNDS);
         assertEquals("it should still have size 13", list.size(), 13);
 
         ReturnObject outOfBoundsTest2 = list.remove(list.size());
-        assertEquals("returned object should have error",
-                outOfBoundsTest2.hasError(), true);
+        assertTrue("returned object should have error",
+                outOfBoundsTest2.hasError());
         assertEquals("returned object should have out of bounds error",
                 outOfBoundsTest2.getError(), ErrorMessage.INDEX_OUT_OF_BOUNDS);
         assertEquals("it should still have size 13", list.size(), 13);
@@ -164,7 +164,7 @@ public class ArrayListTest {
             list.remove(i);
         }
         assertEquals("it should have size 0", list.size(), 0);
-        assertEquals("it should be empty", list.isEmpty(), true);
+        assertTrue("it should be empty", list.isEmpty());
         assertEquals("it should return EMPTY_STRUCTURE when get is called",
                 list.get(2).getError(), ErrorMessage.EMPTY_STRUCTURE);
         assertEquals("it should return INDEX_OUT_OF_BOUNDS when remove is called",
@@ -176,7 +176,7 @@ public class ArrayListTest {
         assertEquals("returned object should have error INDEX_OUT_OF_BOUNDS",
                 outOfBoundsTest3.getError(), ErrorMessage.INDEX_OUT_OF_BOUNDS);
         assertEquals("it should still have size 0", list.size(), 0);
-        assertEquals("it should still be empty", list.isEmpty(), true);
+        assertTrue("it should still be empty", list.isEmpty());
     }
 
     @Test
